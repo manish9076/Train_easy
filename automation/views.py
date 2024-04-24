@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import DatasetUploadForm, PreprocessingForm, AlgorithmSelectionForm, MetricSelectionForm, TrainingForm
-from .models import Dataset, Preprocessing
+from .models import *
 from django.http import JsonResponse
 from .preprocessing import preprocess_data
 from django.contrib.auth.decorators import login_required
@@ -97,6 +97,23 @@ def training(request):
             training.save()
             messages.success(request, 'Training started successfully')
             return redirect('training')
-    return render(request, 'training.html')
+    ctx = {'form': form}
+    return render(request, 'training.html', ctx)
     
         
+        
+def finalize_pipeline(request):
+    user = request.user
+    dataset = Dataset.objects.filter(user=user).last()
+    preprocesses = Preprocessing.objects.filter(user=user, dataset=dataset).last()
+    algorithms = AlgorithmSelection.objects.filter(user=user, dataset=dataset).last()
+    metrics = MetricSelection.objects.filter(user=user, dataset=dataset).last()
+    training = Training.objects.filter(user=user, dataset=dataset).last()
+    ctx = {
+        'dataset': dataset,
+        'preprocesses': preprocesses,
+        'algorithms': algorithms,
+        'metrics': metrics,
+        'training': training
+    }
+    return render(request, 'finalize_pipeline.html', ctx)

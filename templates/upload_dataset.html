@@ -12,12 +12,13 @@
     
 {% block content %}
 <section class="my-5">
+    {% include 'components/steps.html' %}
     <div class="container my-5">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6 mx-auto">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h1>Upload Dataset</h1>
+                        <h3>Upload Dataset</h3>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form|crispy}}

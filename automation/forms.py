@@ -24,5 +24,5 @@ class MetricSelectionForm(forms.ModelForm):
 class TrainingForm(forms.ModelForm):
     class Meta:
         model = Training
-        fields = ['dataset']  
+        fields = ['dataset', 'training_time' , 'training_accuracy', 'testing_accuracy','split' , 'random_state', 'model_path']  
         

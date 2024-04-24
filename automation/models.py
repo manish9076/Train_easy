@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Dataset(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, help_text='Automation Project Name', default='AutoMate Project')
     file = models.FileField(upload_to='datasets/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
