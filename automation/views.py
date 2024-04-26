@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import DatasetUploadForm, PreprocessingForm, AlgorithmSelectionForm
-from .models import Dataset, Preprocessing
+from .forms import DatasetUploadForm, PreprocessingForm, AlgorithmSelectionForm, MetricSelectionForm, TrainingForm
+from .models import *
 from django.http import JsonResponse
 from .preprocessing import preprocess_data
 from django.contrib.auth.decorators import login_required
@@ -73,5 +73,44 @@ def algorithm_selection(request):
     ctx = {'form': form}
     return render(request, 'algorithm_selection.html', ctx)
     
-    
-        
+def metric_selection(request):
+    form = MetricSelectionForm()
+    if request.method == 'POST':
+        form = MetricSelectionForm(request.POST)
+        if form.is_valid():
+            metric = form.save(commit=False)
+            metric.user = request.user
+            metric.save()
+            messages.success(request, 'Metrics selected successfully')
+            return redirect('training')
+    ctx = {'form': form}
+    return render(request, 'metric_selection.html', ctx)
+
+def training(request):
+    form = TrainingForm()
+    if request.method == 'POST':
+        form = TrainingForm(request.POST)
+        if form.is_valid():
+            training = form.save(commit=False)
+            training.user = request.user
+            training.save()
+            messages.success(request, 'Training started successfully')
+            return redirect('finalize')
+    ctx = {'form': form}
+    return render(request, 'training.html', ctx)
+
+def finalize_pipeline(request):
+    user = request.user
+    dataset = Dataset.objects.filter(user=user).last()
+    preprocesses = Preprocessing.objects.filter(user=user, dataset=dataset).last()
+    algorithms = AlgorithmSelection.objects.filter(user=user, dataset=dataset).last()
+    metrics = MetricSelection.objects.filter(user=user, dataset=dataset).last()
+    training = Training.objects.filter(user=user, dataset=dataset).last()
+    ctx = {
+        'dataset': dataset,
+        'preprocesses': preprocesses,
+        'algorithms': algorithms,
+        'metrics': metrics,
+        'training': training
+    }
+    return render(request, 'finalize_pipeline.html', ctx)      

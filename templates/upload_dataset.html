@@ -3,21 +3,77 @@
 {% load static %}
 
 {% block css %}
-    <style>
-        header{
-            background-color: rgb(0, 0, 100);
-        }
-    </style>
+<style>
+    body {
+        background-image: url('/static/img/simply-1.webp');
+        /* Set background image */
+        background-size: cover;
+        /* Cover the entire background */
+        background-position: center;
+        /* Center the background image */
+        font-family: Arial, sans-serif;
+        /* Set font family */
+        margin: 0;
+        /* Remove default margins */
+        padding: 0;
+        /* Remove default padding */
+    }
+    /* Custom styles for form */
+    form {
+        background-color: #ded8d8;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Custom styles for form inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    /* Adding hover effect for form inputs */
+    input[type="text"]:hover,
+    input[type="email"]:hover,
+    input[type="password"]:hover {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.262);
+    }
+
+    /* Custom styles for buttons */
+    button.btn-primary {
+        background-color: #070acf; 
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+
+        
+        transition: all 0.3s ease;
+    }
+
+    button.btn-primary:hover {
+        background-color: #5109e2; 
+    }
+</style>
 {% endblock  %}
     
 {% block content %}
 <section class="my-5">
     <div class="container my-5">
+        {% include 'components/steps.html' %}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6 mx-auto">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h1>Upload Dataset</h1>
+                        <h3>Upload Dataset</h3>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form|crispy}}

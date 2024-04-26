@@ -5,7 +5,9 @@ urlpatterns = [
     path('upload/dataset', views.upload_dataset, name='upload_dataset'),
     path('view/dataset', views.view_dataset, name='view_dataset'),
     path('preprocess/selection', views.preprocess_selection, name='preprocess_selection'),
-    path('algorithm/selection', views.algorithm_selection, name='algorithm_selection')
+    path('algorithm/selection', views.algorithm_selection, name='algorithm_selection'),
+    path('metric/selection', views.metric_selection, name='metric_selection'),
+    path('training', views.training, name='training'),
 ]
 
 api_urlpatterns = [
