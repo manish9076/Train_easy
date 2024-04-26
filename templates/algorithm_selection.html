@@ -5,8 +5,12 @@
 {% block css %}
 <style>
     header {
+<<<<<<< HEAD
         background-color: rgb(0, 0, 100);  
         
+=======
+        background-color: rgb(0, 0, 100);
+>>>>>>> 0279efee633acf3f0b980c4b736ceca10c994581
     }
 </style>{% endblock %}
 
@@ -19,7 +23,11 @@
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <h1>Algorithm Selection</h1>
+<<<<<<< HEAD
                         <form method="POST"  enctype="multipart/form-data">
+=======
+                        <form method="POST"  enctype="multipart/form-data" >
+>>>>>>> 0279efee633acf3f0b980c4b736ceca10c994581
                             {% csrf_token %}
                             {{form|crispy}}
                             <button type="submit" class="btn btn-primary">Submit</button>

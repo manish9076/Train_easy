@@ -73,6 +73,10 @@ def algorithm_selection(request):
     ctx = {'form': form}
     return render(request, 'algorithm_selection.html', ctx)
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 0279efee633acf3f0b980c4b736ceca10c994581
 def metric_selection(request):
     form = MetricSelectionForm()
     if request.method == 'POST':
@@ -95,10 +99,19 @@ def training(request):
             training.user = request.user
             training.save()
             messages.success(request, 'Training started successfully')
+<<<<<<< HEAD
             return redirect('finalize')
     ctx = {'form': form}
     return render(request, 'training.html', ctx)
 
+=======
+            return redirect('training')
+    ctx = {'form': form}
+    return render(request, 'training.html', ctx)
+    
+        
+        
+>>>>>>> 0279efee633acf3f0b980c4b736ceca10c994581
 def finalize_pipeline(request):
     user = request.user
     dataset = Dataset.objects.filter(user=user).last()
@@ -113,4 +126,8 @@ def finalize_pipeline(request):
         'metrics': metrics,
         'training': training
     }
+<<<<<<< HEAD
     return render(request, 'finalize_pipeline.html', ctx)      
+=======
+    return render(request, 'finalize_pipeline.html', ctx)
+>>>>>>> 0279efee633acf3f0b980c4b736ceca10c994581
